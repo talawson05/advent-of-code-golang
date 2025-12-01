@@ -59,7 +59,7 @@ func TestCompletingTheCircleLeft(t *testing.T) {
 }
 
 func TestLargeRightTurn(t *testing.T) {
-	want := 20
+	want := 30
 	got, err := DoRotation(10, "R", 120)
 
 	if err != nil {
@@ -113,7 +113,7 @@ func TestGoingNowhereLeft(t *testing.T) {
 
 
 func TestUnexpectedDirection(t *testing.T) {
-	expectError := "Unexpected direction"
+	expectError := "unexpected direction"
 	_, actualError := DoRotation(33, "U", 1)
 
 	if (actualError == nil) || (actualError.Error() != expectError) {
