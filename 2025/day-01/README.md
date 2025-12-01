@@ -19,7 +19,8 @@ First things first, lets write some tests for this.
 | Large right turn| 10 | Right| 120| 30 |  
 | Large left turn | 10 | Left| 145| 65 |  
 
-Let's also throw in a test for an unexpected direction of Up
+Let's also throw in a test for an unexpected direction of Up.  
+Tests located in [main_test.go](./main_test.go)
 
 ## Implementing the dial rotation
 
@@ -29,3 +30,26 @@ I'm sure there is a clever way to simple add/subtract the number of clicks and u
 Gone with a switch statement to cover the direction edge case. Not 100% happy it's being evaluated every loop iteration, but even moving it will mean I need to do an IF to tell whether we're counting up or down.
 
 Found one of my expected results was off, the large right turn needed updating.
+
+## Example input
+
+Heading back to the AoC task description they give us an example list of 10 steps; so let's implement some file reading.  
+Created the [example_input.txt](./example_input.txt) to hold the values.  
+Wrote test 'TestExampleInput' which just compared the file content to a slice, to make sure I was happy with my approach.  
+Next added the step-by-step rotation and validation. Stopped after 5 steps as it was clear the approach was working.  
+
+## The twist
+
+It's not enough to rotate the dial, we need to keep a count of how many times we land on 0. That's land, not pass.  
+A simple if == 0 counter should suffice.
+
+## Running
+
+Put the full input into new file [input.txt](./input.txt) and implemented the main.  
+Only to bump into package path problems.  
+Ended up creating the [cmd main](./cmd/main.go) to act as the trigger. Still figuring the packages/classes out
+
+### GOTCHA
+
+The number of 0s was coming out incorrect. Turns out I was occluding the current dial position variable, which lead to overwriting the count. Changing `currentDialPosition := DoRotation` to `currentDialPosition = returnPosition` solved it.  
+Onto part 2.
