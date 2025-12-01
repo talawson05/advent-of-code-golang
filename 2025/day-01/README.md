@@ -53,3 +53,13 @@ Ended up creating the [cmd main](./cmd/main.go) to act as the trigger. Still fig
 
 The number of 0s was coming out incorrect. Turns out I was occluding the current dial position variable, which lead to overwriting the count. Changing `currentDialPosition := DoRotation` to `currentDialPosition = returnPosition` solved it.  
 Onto part 2.
+
+## Part 2
+
+Now we count every time we touch the number 0, passing and stopping.  
+My zero check is outside of the rotation, so a refactor is in order.  
+The ability to have multiple return values coming out of a function is great;
+and the ability to ignore the new value with `_` keeps the existing tests working.  
+The addition of optional arguments helped keep the interface too, but at the cost of extra logic inside the function.
+Added the same step by step test, plus tests for when a single rotation will loop over the zero multiple times.  
+Success!

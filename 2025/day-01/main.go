@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-func DoRotation(startingPosition int, direction string, rotationValue int) (int, error) {
+func DoRotation(startingPosition int, direction string, rotationValue int, zeroCounter ...int) (int, int, error) {
 	currentPosition := startingPosition
 
 	for counter:= 0; counter <rotationValue ; counter ++ {
@@ -19,7 +19,7 @@ func DoRotation(startingPosition int, direction string, rotationValue int) (int,
 		case direction == "R":
 			currentPosition++
 		default:
-			return -1, errors.New("unexpected direction")
+			return -1, -1, errors.New("unexpected direction")
 		}
 		
 		if currentPosition > 99 {
@@ -27,14 +27,27 @@ func DoRotation(startingPosition int, direction string, rotationValue int) (int,
 		} else if currentPosition < 0 {
 			currentPosition = 99			
 		}
-	}
 
-	return currentPosition, nil
+		if len(zeroCounter) > 0 && currentPosition == 0 {
+			zeroCounter[0]++
+		}
+	}	
+
+	if len(zeroCounter) > 0 {
+		return currentPosition, zeroCounter[0], nil
+	}
+	return currentPosition, 0, nil
 }
+
+/*
+	cd 2025/day-01/
+	go run ./cmd/
+*/
 
 func Run() {
 	currentDialPosition := 50
 	countOfLandingOnZero := 0
+	countOfTouchingZero :=0
 	file, err := os.Open("input.txt")
 	if err != nil {
 		panic(err)
@@ -48,8 +61,10 @@ func Run() {
 		if stepParseErr != nil {
 			panic(stepParseErr)
 		}
-		returnPosition, stepErr := DoRotation(currentDialPosition, stepDirection, stepClicks)
+		// GOTCHA: occlusion
+		returnPosition, returnZeroCount, stepErr := DoRotation(currentDialPosition, stepDirection, stepClicks, countOfTouchingZero)
 		currentDialPosition = returnPosition
+		countOfTouchingZero = returnZeroCount
 		if stepErr != nil {
 			panic(stepErr)
 		}
@@ -59,5 +74,5 @@ func Run() {
 	}
 	fmt.Printf("Final dial position: %d\n", currentDialPosition)
 	fmt.Printf("Number of times we landed on 0: %d\n", countOfLandingOnZero)
-
+	fmt.Printf("Number of times we tocuhed 0: %d\n", countOfTouchingZero)
 }
