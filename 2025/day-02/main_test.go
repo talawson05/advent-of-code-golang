@@ -26,9 +26,17 @@ func Test22IsInvalid(t *testing.T) {
 	}
 }
 
-func Test111IsValid(t *testing.T) {
-	want := false
+func Test111IsInvalid(t *testing.T) {
+	want := true
 	got := IsInvalidId(111)
+	if want != got {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
+func Test101IsValid(t *testing.T) {
+	want := false
+	got := IsInvalidId(101)
 	if want != got {
 		t.Errorf("Wanted %v, got %v", want, got)
 	}
@@ -53,6 +61,30 @@ func Test1122IsValid(t *testing.T) {
 func Test1212IsInvalid(t *testing.T) {
 	want := true
 	got := IsInvalidId(1212)
+	if want != got {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
+func Test123123123IsInvalid(t *testing.T) {
+	want := true
+	got := IsInvalidId(123123123)
+	if want != got {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
+func Test1212121212IsInvalid(t *testing.T) {
+	want := true
+	got := IsInvalidId(1212121212)
+	if want != got {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
+func Test1111111IsInvalid(t *testing.T) {
+	want := true
+	got := IsInvalidId(1111111)
 	if want != got {
 		t.Errorf("Wanted %v, got %v", want, got)
 	}
@@ -86,7 +118,7 @@ func TestSingleNumberInvalid(t *testing.T) {
 }
 
 func TestNoEndNumberInvalid(t *testing.T) {
-	t.Skip("Known issue with split")
+	//t.Skip("Known issue with split")
 	want := "invalid input: 42-"
 	_, got := ExpandRange("42-")
 	if want != got.Error() {
@@ -95,7 +127,7 @@ func TestNoEndNumberInvalid(t *testing.T) {
 }
 
 func TestNoStartingNumberInvalid(t *testing.T) {
-	t.Skip("Known issue with split")
+	//t.Skip("Known issue with split")
 	want := "invalid input: -42"
 	_, got := ExpandRange("-42")
 	if want != got.Error() {
@@ -148,7 +180,7 @@ func TestFindInvalidIdIn11to22(t *testing.T) {
 }
 
 func TestFindInvalidIdIn95to115(t *testing.T) {
-	want := []int{99}
+	want := []int{99, 111}
 	got, err := ReturnListOfInvalidIdsFromRange("95-115")
 	if err != nil {
 		panic(err)
@@ -159,7 +191,7 @@ func TestFindInvalidIdIn95to115(t *testing.T) {
 }
 
 func TestFindInvalidIdIn998to1012(t *testing.T) {
-	want := []int{1010}
+	want := []int{999, 1010}
 	got, err := ReturnListOfInvalidIdsFromRange("998-1012")
 	if err != nil {
 		panic(err)

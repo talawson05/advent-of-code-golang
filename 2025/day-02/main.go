@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"slices"
+	// "slices"
 	"strconv"
 	"strings"
 )
@@ -13,17 +13,39 @@ import (
 func IsInvalidId(inputVal int) bool {
 	inputString := strconv.Itoa(inputVal)
 	stringLength := len(inputString)
-	halfLength :=  stringLength / 2
 
-	if (stringLength % 2) != 0 {
+	if stringLength <= 1 {
 		return false
 	}
 
-	asRunes := []rune(inputString)
-	firstHalf := asRunes[:halfLength]
-	secondHalf := asRunes[halfLength:]	
+	// halfLength :=  stringLength / 2
+
+	// asRunes := []rune(inputString)
+	// var firstHalf = []rune{}
+	// var secondHalf = []rune{}
+
+	// if stringLength % 2 == 0 {
+	// 	firstHalf = asRunes[:halfLength]
+	// 	secondHalf = asRunes[halfLength:]	
+	// } else {
+	// 	firstHalf = asRunes[:halfLength+1]
+	// 	secondHalf = asRunes[halfLength:]
+	// }
 	
-	return slices.Equal(firstHalf, secondHalf)
+	// return slices.Equal(firstHalf, secondHalf)
+
+	for i := 1; i < len(inputString); i++ {
+		subString := inputString[:i]
+		currentPattern := ""
+		for j := 0; len(currentPattern) < stringLength; j++ {
+			currentPattern += subString
+		}
+		if currentPattern == inputString {
+			return true
+		}
+	}
+
+	return false
 }
 
 func ExpandRange(inputRange string) ([]int, error) {
@@ -33,16 +55,21 @@ func ExpandRange(inputRange string) ([]int, error) {
 		return nil, errors.New(formattedErrMessage)
 	}
 
-	split := strings.Split(inputRange, "-")
-
-	if len(split) != 2 {
+	index := strings.LastIndexByte(inputRange, '-')
+	
+	if index <= 0 {
 		formattedErrMessage := fmt.Sprintf("invalid input: %s", inputRange)
 		return nil, errors.New(formattedErrMessage)
 	}
+	rangeStart, _ := strconv.Atoi(inputRange[:index])
+
+	if index +1 >= len(inputRange) {
+		formattedErrMessage := fmt.Sprintf("invalid input: %s", inputRange)
+		return nil, errors.New(formattedErrMessage)
+	}
+	rangeEnd, _ := strconv.Atoi(inputRange[index+1:])
 
 	returnRange := []int{}
-	rangeStart, _ := strconv.Atoi(split[0])
-	rangeEnd, _ := strconv.Atoi(split[1])
 	for i := rangeStart; i <= rangeEnd; i++ {
 		returnRange = append(returnRange, i)
 	}
@@ -105,7 +132,7 @@ func Run() {
 		accumulatedInvalidIds = append(accumulatedInvalidIds, invalidIdsFound...)
 	}
 
-	fmt.Println(accumulatedInvalidIds)
+	// fmt.Println(accumulatedInvalidIds)
 	sum := SumRange(accumulatedInvalidIds)
 	fmt.Println(sum)
 
