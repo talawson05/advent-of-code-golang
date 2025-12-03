@@ -28,3 +28,7 @@ Wrapping tests
 | 213 | 23 |
 
 ### Implementation
+
+For the basic inner, casting from rune to int to make sure the numerical comparison is legit was the main drama. After that, a simple loop and if was enough.
+Now we need to take the index and only use the subset of character after the index for the second iteration. Unless the index is at the end, in which case we want all but the last number.  
+I don't enjoy how I'm doing the same IF twice, does Go have ternaries? Apparently not.  
