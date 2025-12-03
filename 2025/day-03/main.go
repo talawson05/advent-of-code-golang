@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
 
 /*
@@ -17,6 +18,7 @@ func Run() {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 
 	sum := 0
 	scanner := bufio.NewScanner(file)
@@ -26,47 +28,50 @@ func Run() {
 		currentNumber, _ := strconv.Atoi(returnedValue)
 		sum += currentNumber
 	}
+
 	fmt.Println(sum)
 }
 
-func GetIndexAndValueOfBiggestNumberFromRange(input string) (int, string) {
+func GetBiggestNumberFromRange(input string) string {
+	targetLength := 12
+	sliceOfInts := stringToSliceOfInts(input)
+	returnSliceOfInts := make([]int, targetLength) // all 0s
 
-	returnIndex, returnValue := -1, -1
+	for outerIndex, outerInt := range sliceOfInts {
+		for innerIndex, innerInt := range returnSliceOfInts {
+			// a - b > 15 - 12
+			if outerIndex - innerIndex > len(sliceOfInts) - targetLength {
+				// We're too far along the string, and won't make 12 digits
+				continue // increment inner loop
+			}
 
-	for index, r := range input {
-		character := fmt.Sprintf("%c", r)
-		value, _ := strconv.Atoi(character)
-		if value > returnValue {
-			returnValue = value
-			returnIndex = index			
+			if outerInt > innerInt {
+				// Set new bigger number
+				returnSliceOfInts[innerIndex] = outerInt
+				break // increment outer loop
+			}
 		}
 	}
 
-	return returnIndex, strconv.Itoa(returnValue)
+	return concatIntsToString(returnSliceOfInts)
 }
 
-func GetBiggestNumberFromRange(input string) string {
-
-	firstBiggestIndex, firstBiggestValue := GetIndexAndValueOfBiggestNumberFromRange(input)
-	lengthOfInput := len(input)
-	subset := ""
-
-	if firstBiggestIndex == (lengthOfInput - 1) {
-		// biggest character was in last place
-		subset = input[:firstBiggestIndex]
-	} else {
-		subset = input[firstBiggestIndex+1:]
+func stringToSliceOfInts(input string) []int {
+	sliceOfInts := make([]int, 0, len(input))
+	for _, character := range input {
+		// note: convert rune to int - https://stackoverflow.com/questions/21322173/convert-rune-to-int#comment112055881_21322694
+		sliceOfInts = append(sliceOfInts, int(character-'0'))
 	}
+	
+	return sliceOfInts
+}
 
-	_, secondBiggestValue := GetIndexAndValueOfBiggestNumberFromRange(subset)
+func concatIntsToString(ints []int) string {
+    var builder strings.Builder
+    for _, v := range ints {
+        builder.WriteString(strconv.Itoa(v))
+    }
 
-	returnString := ""	
-	 if firstBiggestIndex == (lengthOfInput - 1) { 
-		returnString = fmt.Sprintf("%s%s", secondBiggestValue, firstBiggestValue)
-	 } else {
-		returnString = fmt.Sprintf("%s%s", firstBiggestValue, secondBiggestValue)
-	 }
-
-	return returnString
+    return builder.String()
 }
 
