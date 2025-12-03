@@ -1,7 +1,9 @@
 package aoc
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strconv"
 )
 
@@ -11,7 +13,20 @@ import (
 */
 
 func Run() {
-	fmt.Println("day03")
+	file, err := os.Open("input.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	sum := 0
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		currentLine := scanner.Text()
+		returnedValue := GetBiggestNumberFromRange(currentLine)
+		currentNumber, _ := strconv.Atoi(returnedValue)
+		sum += currentNumber
+	}
+	fmt.Println(sum)
 }
 
 func GetIndexAndValueOfBiggestNumberFromRange(input string) (int, string) {
