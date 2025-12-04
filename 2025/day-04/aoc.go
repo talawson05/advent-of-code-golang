@@ -13,7 +13,7 @@ func Run(filename string) {
 	}
 	inputString := string(inputBytes)
 	grid := ParseStringToGrid(inputString)
-	_, numberUpdated := UpdateGridWherePaperRollsCanBeMoved(grid)
+	_, numberUpdated := RecursiveUpdateGridWherePaperRollsCanBeMoved(grid)
 	fmt.Println(numberUpdated)	
 }
 
@@ -67,16 +67,16 @@ func inBounds(grid map[coord]rune, currentCord coord) bool {
 func UpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coord]rune, int) {
 	numberOfUpdatedCells := 0
 
-	for cell := range grid {
+	for cell, cellValue := range grid {
 
-		if IsCurrentCharacterPaperRoll(grid[cell]) {
+		if IsCurrentCharacterPaperRoll(cellValue) {
 			// Current cell is @
 
 			neighbours := GetNeighbours(grid, cell)
 			// How many neighbours have value @
 			neighbouringPaperRolls := 0
-			for n := range neighbours {
-				if IsCurrentCharacterPaperRoll(neighbours[n]) {
+			for _, neighbourValue := range neighbours {
+				if IsCurrentCharacterPaperRoll(neighbourValue) {
 					neighbouringPaperRolls++
 				}
 			}
@@ -89,5 +89,37 @@ func UpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coord]rune, i
 	}
 
 	// Return the updated grid and how many updates were made
+	return grid, numberOfUpdatedCells
+}
+
+func RemoveUpdatesFromGrid(grid map[coord]rune) (map[coord]rune) {
+	for cell, cellValue := range grid {
+		if cellValue == 'x' {
+			grid[cell] = '.'
+		}
+	}
+	return grid
+}
+
+func RecursiveUpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coord]rune, int) { 
+	numberOfUpdatedCells := 0
+	keepLooping := true
+
+	for keepLooping {
+		updatedGrid, numberUpdated := UpdateGridWherePaperRollsCanBeMoved(grid)
+		numberOfUpdatedCells += numberUpdated
+		cleanGrid := RemoveUpdatesFromGrid(updatedGrid)
+		grid = cleanGrid
+
+		// note to self: grid is being updated at every step because it's pass by refernce
+		// which means we don't need to do the return and reassign steps
+		// maps & slices
+
+		if numberUpdated <= 0 {
+			keepLooping = false
+			break
+		}
+	}
+
 	return grid, numberOfUpdatedCells
 }
