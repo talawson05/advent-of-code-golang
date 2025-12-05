@@ -39,10 +39,19 @@ I then need to update the ParseInput function to return the ranges as a list of 
 Had to rethink the duplicates where a single item is in multiple of the ranges. Breaking the loop was enough for the unit test, let's see how the real input handles it.
 Nailed it!
 
+## Part 2
+
+What! If I could expand the ranges, this would already have been done.
+I need to work with the left and right integers of the range, so creating a function to extract them.  
+First time sorting a slice!
+Ok trying to handle the overlap is tricky.
+And now to count the numbers in the range. I've totally butchered CountOfFreshIngredients, it should not have the second return type, this is how API interfaces drift over time.
 
 ## Take away
 
 This was the first time encoutering execution timeouts. Not a real timeout, just me bored of waiting and killing it.  
 The result was throwing away a nice little idea of using sets, but sometimes we have to say goodbye.  
 On that note this was how I learned Golang does not have sets, and that maps can be used to replicate the behaviour.  
-Finally, comparing nested slices of slices requires more than the basic slices.Equals. Enter the reflect.DeepEqual which I subsequently took out as part of aboritng the set idea.
+Comparing nested slices of slices requires more than the basic slices.Equals. Enter the reflect.DeepEqual which I subsequently took out as part of aboritng the set idea.  
+We got to import a sort library.
+Finally I've fallen into the classic trap of updating inputs/outputs for a function without respecting the functions name, just because I couldn't be bothered to break it apart - slaps wrist.

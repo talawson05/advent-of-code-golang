@@ -1,6 +1,7 @@
 package aoc
 
 import (
+	"fmt"
 	"slices"
 	"testing"
 )
@@ -18,7 +19,7 @@ func TestRange1to3(t *testing.T) {
 	}
 }
 
-func TestNoDupesInSet(t *testing.T) { 
+func TestNoDupesInSet(t *testing.T) {
 	input := [][]int{{1,2,3}, {3,4,5}}
 	want := map[int]bool{
 		1: true,
@@ -33,7 +34,7 @@ func TestNoDupesInSet(t *testing.T) {
 	}
 }
 
-func TestGapsAreNotPopulatedInSet(t *testing.T) { 
+func TestGapsAreNotPopulatedInSet(t *testing.T) {
 	input := [][]int{{1,2,3}, {5, 6, 7}}
 	want := map[int]bool{
 		1: true,
@@ -175,7 +176,43 @@ func TestCountOfFreshIngredients(t *testing.T) {
 	32
 	`
 	want := 3
-	got := CountOfFreshIngredients(input)
+	wantSum := 14
+	got, gotSum := CountOfFreshIngredients(input)
+	if got != want || gotSum != wantSum {
+		t.Errorf("Wanted %v and sum %v, but got %v and sum %v", want, wantSum, got, gotSum)
+	}
+}
+
+func TestGetLowAndHighFromRange(t *testing.T) {
+	want := "3-5"
+	gotLow, gotHigh, err := GetLowAndHighFromRange(want)
+	if err != nil {
+		t.Errorf("error thrown: %v", err)
+	}
+	got := fmt.Sprintf("%d-%d", gotLow, gotHigh)
+	if got != want {
+		t.Errorf("Wanted %v, but got %v", want, got)
+	}
+}
+
+func TestMergingOfRanges(t *testing.T) {
+	input :=  []string{
+		"3-5",
+		"10-14",
+		"16-20",
+		"12-18",
+	}
+	got := MergeRanges(input)
+	want := []string{ "3-5", "10-20"}
+	if !slices.Equal(want, got) {
+		t.Errorf("Wanted %v, got %v", want, got)
+	}
+}
+
+func TestCountTotalInRanges(t *testing.T) {
+	input := []string{ "3-5", "10-20"}
+	want := 14
+	got := CountTotalInRanges(input)
 	if got != want {
 		t.Errorf("Wanted %v, but got %v", want, got)
 	}
