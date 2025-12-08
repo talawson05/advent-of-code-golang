@@ -20,4 +20,25 @@ Turns out counting column then row is mentally trickier than originally thought.
 
 ## Part 2
 
+It looks like another rip out and start again.
+Input is essentially reversed. 
+
+### Part 2 TDD
+
+Need to parse that string from right to left, top to bottom.  
+And because the spacing/indents are important, read it from a file.
+
+
+### Part 2 Impl
+
+Reversing a slice is easy enough with slices.Reverse, which manipulates the slice so no returning.
+But during the attempt, I'm going to read the input line by line instead of a whole string.
+Which means reading from file to take advantage of the line scanner; taking the reverse slice out.  
+Once the input was parsed, turns out it was the regular way so can traverse it like row x column as normal.
+This meant creating a second DoCalc function as it's going through it in a different order.
+
 ## Take aways
+
+Parsing the input is one thing, but normalising would have been a good idea.
+By normalising it I mean converting the column x row layout from part 1 into the standard row x column.
+The benefit of doing it this way would mean a single DoCalc function.
