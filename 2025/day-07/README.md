@@ -20,6 +20,11 @@ And where a splitter occurs with no input, do nothing
 
 ## Part 2
 
+Despite the fancy wording around quantum and many worlds, it's just counting right?
+If we add an accumalitive counter to the split counter, and return it as a second value (these multi value returns are awesome) we should be able to reuse the function.
+The trick is to also count where the beams are merged.
+
 ## Take aways
 
-Reading the input clearly, and noticing the small details is vitally important to avoid going down the wrong path. Luckily the simple count trial and error was quick and painless.
+Reading the input clearly, and noticing the small details is vitally important to avoid going down the wrong path. Luckily the simple count trial and error was quick and painless.  
+![Jump to conclusions mat](./img/JumptoConclusions.jpeg "Jump to conclusions mat")

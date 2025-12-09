@@ -8,8 +8,9 @@ import (
 
 func Run(fileName string) {
 	allText := ReadAllTextFromFile(fileName)
-	numberOfSplits := TrackSplitsOnGrid(allText)
+	numberOfSplits, numberOfTimelines := TrackSplitsOnGrid(allText)
 	fmt.Println(numberOfSplits)
+	fmt.Println(numberOfTimelines)
 }
 
 func ReadAllTextFromFile(fileName string) string {
@@ -20,7 +21,7 @@ func ReadAllTextFromFile(fileName string) string {
 	return string(inputBytes)
 }
 
-func TrackSplitsOnGrid(input string) int {
+func TrackSplitsOnGrid(input string) (int, int) {
 
 	allText := strings.Fields(input)
 
@@ -29,7 +30,7 @@ func TrackSplitsOnGrid(input string) int {
 	// Start the count of beams for the first row of input
 	beams[strings.Index(allText[0], "S")] = 1
 
-	splitCounter := 0
+	splitCounter, timelineCounter := 0, 1
 	for _, rowText := range allText {
 		for columnIndex, characterRune := range rowText {
 			if characterRune == '^' {
@@ -39,8 +40,10 @@ func TrackSplitsOnGrid(input string) int {
 				if valueInCurrentPosition == 0 {
 					continue
 				}
+				// increment the timelines, note we want both where L/R were merged
+				timelineCounter += valueInCurrentPosition
 
-				splitCounter += 1				
+				splitCounter += 1
 				// Increment the positions either side of the split
 				beams[columnIndex-1] += valueInCurrentPosition
 				beams[columnIndex+1] += valueInCurrentPosition
@@ -51,5 +54,5 @@ func TrackSplitsOnGrid(input string) int {
 		}
 	}
 
-	return splitCounter
+	return splitCounter, timelineCounter
 }
