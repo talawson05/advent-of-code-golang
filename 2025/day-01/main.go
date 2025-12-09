@@ -11,27 +11,27 @@ import (
 func DoRotation(startingPosition int, direction string, rotationValue int, zeroCounter ...int) (int, int, error) {
 	currentPosition := startingPosition
 
-	for counter:= 0; counter <rotationValue ; counter ++ {
+	for counter := 0; counter < rotationValue; counter++ {
 
-		switch {
-		case direction == "L":
+		switch direction {
+		case "L":
 			currentPosition--
-		case direction == "R":
+		case "R":
 			currentPosition++
 		default:
 			return -1, -1, errors.New("unexpected direction")
 		}
-		
+
 		if currentPosition > 99 {
-			currentPosition = 0			
+			currentPosition = 0
 		} else if currentPosition < 0 {
-			currentPosition = 99			
+			currentPosition = 99
 		}
 
 		if len(zeroCounter) > 0 && currentPosition == 0 {
 			zeroCounter[0]++
 		}
-	}	
+	}
 
 	if len(zeroCounter) > 0 {
 		return currentPosition, zeroCounter[0], nil
@@ -47,7 +47,7 @@ func DoRotation(startingPosition int, direction string, rotationValue int, zeroC
 func Run() {
 	currentDialPosition := 50
 	countOfLandingOnZero := 0
-	countOfTouchingZero :=0
+	countOfTouchingZero := 0
 	file, err := os.Open("input.txt")
 	if err != nil {
 		panic(err)
@@ -69,7 +69,7 @@ func Run() {
 			panic(stepErr)
 		}
 		if currentDialPosition == 0 {
-			countOfLandingOnZero++		
+			countOfLandingOnZero++
 		}
 	}
 	fmt.Printf("Final dial position: %d\n", currentDialPosition)

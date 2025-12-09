@@ -196,21 +196,21 @@ func TestGetLowAndHighFromRange(t *testing.T) {
 }
 
 func TestMergingOfRanges(t *testing.T) {
-	input :=  []string{
+	input := []string{
 		"3-5",
 		"10-14",
 		"16-20",
 		"12-18",
 	}
 	got := MergeRanges(input)
-	want := []string{ "3-5", "10-20"}
+	want := []string{"3-5", "10-20"}
 	if !slices.Equal(want, got) {
 		t.Errorf("Wanted %v, got %v", want, got)
 	}
 }
 
 func TestCountTotalInRanges(t *testing.T) {
-	input := []string{ "3-5", "10-20"}
+	input := []string{"3-5", "10-20"}
 	want := 14
 	got := CountTotalInRanges(input)
 	if got != want {

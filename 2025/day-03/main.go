@@ -40,7 +40,7 @@ func GetBiggestNumberFromRange(input string) string {
 	for outerIndex, outerInt := range sliceOfInts {
 		for innerIndex, innerInt := range returnSliceOfInts {
 			// a - b > 15 - 12
-			if outerIndex - innerIndex > len(sliceOfInts) - targetLength {
+			if outerIndex-innerIndex > len(sliceOfInts)-targetLength {
 				// We're too far along the string, and won't make 12 digits
 				continue // increment inner loop
 			}
@@ -62,16 +62,15 @@ func stringToSliceOfInts(input string) []int {
 		// note: convert rune to int - https://stackoverflow.com/questions/21322173/convert-rune-to-int#comment112055881_21322694
 		sliceOfInts = append(sliceOfInts, int(character-'0'))
 	}
-	
+
 	return sliceOfInts
 }
 
 func concatIntsToString(ints []int) string {
-    var builder strings.Builder
-    for _, v := range ints {
-        builder.WriteString(strconv.Itoa(v))
-    }
+	var builder strings.Builder
+	for _, v := range ints {
+		builder.WriteString(strconv.Itoa(v))
+	}
 
-    return builder.String()
+	return builder.String()
 }
-

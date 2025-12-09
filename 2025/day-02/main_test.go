@@ -114,7 +114,7 @@ func TestSingleNumberInvalid(t *testing.T) {
 	_, got := ExpandRange("42")
 	if want != got.Error() {
 		t.Errorf("Wanted %v, got %v", want, got)
-	}	
+	}
 }
 
 func TestNoEndNumberInvalid(t *testing.T) {
@@ -123,7 +123,7 @@ func TestNoEndNumberInvalid(t *testing.T) {
 	_, got := ExpandRange("42-")
 	if want != got.Error() {
 		t.Errorf("Wanted %v, got %v", want, got)
-	}	
+	}
 }
 
 func TestNoStartingNumberInvalid(t *testing.T) {
@@ -132,7 +132,7 @@ func TestNoStartingNumberInvalid(t *testing.T) {
 	_, got := ExpandRange("-42")
 	if want != got.Error() {
 		t.Errorf("Wanted %v, got %v", want, got)
-	}	
+	}
 }
 
 func TestRange99to101(t *testing.T) {

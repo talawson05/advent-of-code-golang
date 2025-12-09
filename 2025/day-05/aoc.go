@@ -47,7 +47,7 @@ func CombineRangesIntoSet(inputListOfRanges [][]int) map[int]bool {
 	return returnMap
 }
 
-func ItemIsInRange(inputRange string, target int) (bool, error) {	
+func ItemIsInRange(inputRange string, target int) (bool, error) {
 	rangeStart, rangeEnd, err := GetLowAndHighFromRange(inputRange)
 	if err != nil {
 		return false, err
@@ -56,7 +56,7 @@ func ItemIsInRange(inputRange string, target int) (bool, error) {
 	return target >= rangeStart && target <= rangeEnd, nil
 }
 
-func ItemIsInSet(inputSet  map[int]bool, targetItem int) bool {
+func ItemIsInSet(inputSet map[int]bool, targetItem int) bool {
 	_, ok := inputSet[targetItem]
 	return ok
 }
@@ -90,14 +90,14 @@ func GetLowAndHighFromRange(inputRange string) (int, int, error) {
 	}
 
 	index := strings.LastIndexByte(inputRange, '-')
-	
+
 	if index <= 0 {
 		formattedErrMessage := fmt.Sprintf("invalid input: %s", inputRange)
 		return -1, -1, errors.New(formattedErrMessage)
 	}
 	rangeStart, _ := strconv.Atoi(inputRange[:index])
 
-	if index +1 >= len(inputRange) {
+	if index+1 >= len(inputRange) {
 		formattedErrMessage := fmt.Sprintf("invalid input: %s", inputRange)
 		return -1, -1, errors.New(formattedErrMessage)
 	}

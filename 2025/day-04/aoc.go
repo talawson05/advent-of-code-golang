@@ -14,7 +14,7 @@ func Run(filename string) {
 	inputString := string(inputBytes)
 	grid := ParseStringToGrid(inputString)
 	_, numberUpdated := RecursiveUpdateGridWherePaperRollsCanBeMoved(grid)
-	fmt.Println(numberUpdated)	
+	fmt.Println(numberUpdated)
 }
 
 type coord struct {
@@ -42,8 +42,8 @@ func GetNeighbours(grid map[coord]rune, currentCoordinate coord) map[coord]rune 
 	y := currentCoordinate.y
 	goodNeighbours := make(map[coord]rune) // Everybody needs good neeeeeeeiiiighbours
 
-	for row := x -1; row < x + 2; row++ {
-		for column := y-1; column < y+2; column++ {
+	for row := x - 1; row < x+2; row++ {
+		for column := y - 1; column < y+2; column++ {
 			coordToCheck := coord{row, column}
 			if coordToCheck == currentCoordinate {
 				// can't be a neighbour to yourself
@@ -92,7 +92,7 @@ func UpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coord]rune, i
 	return grid, numberOfUpdatedCells
 }
 
-func RemoveUpdatesFromGrid(grid map[coord]rune) (map[coord]rune) {
+func RemoveUpdatesFromGrid(grid map[coord]rune) map[coord]rune {
 	for cell, cellValue := range grid {
 		if cellValue == 'x' {
 			grid[cell] = '.'
@@ -101,11 +101,10 @@ func RemoveUpdatesFromGrid(grid map[coord]rune) (map[coord]rune) {
 	return grid
 }
 
-func RecursiveUpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coord]rune, int) { 
+func RecursiveUpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coord]rune, int) {
 	numberOfUpdatedCells := 0
-	keepLooping := true
 
-	for keepLooping {
+	for {
 		updatedGrid, numberUpdated := UpdateGridWherePaperRollsCanBeMoved(grid)
 		numberOfUpdatedCells += numberUpdated
 		cleanGrid := RemoveUpdatesFromGrid(updatedGrid)
@@ -116,7 +115,6 @@ func RecursiveUpdateGridWherePaperRollsCanBeMoved(grid map[coord]rune) (map[coor
 		// maps & slices
 
 		if numberUpdated <= 0 {
-			keepLooping = false
 			break
 		}
 	}

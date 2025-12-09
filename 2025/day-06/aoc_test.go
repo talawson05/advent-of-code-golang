@@ -13,7 +13,7 @@ func TestParseStringInputToSlices(t *testing.T) {
 	6 98  215 314
 	*   +   *   +  
 	`
-	wantNumbers := [][]int {
+	wantNumbers := [][]int{
 		{123, 328, 51, 64},
 		{45, 64, 387, 23},
 		{6, 98, 215, 314},
@@ -47,7 +47,7 @@ func TestCalc(t *testing.T) {
 
 func TestPart2ParseInputToSlices(t *testing.T) {
 	fileName := "part2_example_input.txt"
-	wantNumbers := [][]int {
+	wantNumbers := [][]int{
 		{4, 431, 623},
 		{175, 581, 32},
 		{8, 248, 369},
