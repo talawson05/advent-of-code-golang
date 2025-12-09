@@ -88,7 +88,7 @@ func TestWrapper818181911112111(t *testing.T) {
 }
 
 func TestConcatIntToString(t *testing.T) {
-	input := []int {1,2,3,4,5}
+	input := []int{1, 2, 3, 4, 5}
 	want := "12345"
 	got := concatIntsToString(input)
 	if got != want {
@@ -97,7 +97,7 @@ func TestConcatIntToString(t *testing.T) {
 }
 
 func TestStringToIntSlice(t *testing.T) {
-	want := []int {1, 2, 3, 4, 5}
+	want := []int{1, 2, 3, 4, 5}
 	input := "12345"
 	got := stringToSliceOfInts(input)
 	if !slices.Equal(want, got) {

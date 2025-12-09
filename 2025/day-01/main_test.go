@@ -14,7 +14,7 @@ import (
 	go test ./...
 */
 
-func TestSimpleRightTurn (t *testing.T) {
+func TestSimpleRightTurn(t *testing.T) {
 	want := 12
 	got, _, err := DoRotation(10, "R", 2)
 
@@ -27,7 +27,7 @@ func TestSimpleRightTurn (t *testing.T) {
 	}
 }
 
-func TestSimpleLeftTurn (t *testing.T) {
+func TestSimpleLeftTurn(t *testing.T) {
 	want := 8
 	got, _, err := DoRotation(10, "L", 2, 0)
 
@@ -92,7 +92,6 @@ func TestLargeLeftTurn(t *testing.T) {
 	}
 }
 
-
 func TestGoingNowhereRight(t *testing.T) {
 	want := 42
 	got, _, err := DoRotation(42, "R", 0)
@@ -119,7 +118,6 @@ func TestGoingNowhereLeft(t *testing.T) {
 	}
 }
 
-
 func TestUnexpectedDirection(t *testing.T) {
 	expectError := "unexpected direction"
 	_, _, actualError := DoRotation(33, "U", 1)
@@ -130,7 +128,7 @@ func TestUnexpectedDirection(t *testing.T) {
 }
 
 func TestExampleInput(t *testing.T) {
-	want := []string{"L68", "L30", "R48", "L5", "R60","L55", "L1","L99", "R14", "L82"}
+	want := []string{"L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82"}
 	got := []string{}
 
 	file, err := os.Open("example_input.txt")
@@ -156,8 +154,8 @@ func TestExampleInput(t *testing.T) {
 	step0 := steps[0] // L68
 	step0Clicks, step0ParseErr := strconv.Atoi(step0[1:])
 	if step0ParseErr != nil {
-        panic(step0ParseErr)
-    }
+		panic(step0ParseErr)
+	}
 
 	positionAfterStep0, _, step0Err := DoRotation(startingPosition, step0[:1], step0Clicks, 0)
 	if step0Err != nil {
@@ -170,8 +168,8 @@ func TestExampleInput(t *testing.T) {
 	step1 := steps[1] // L30
 	step1Clicks, step1ParseErr := strconv.Atoi(step1[1:])
 	if step1ParseErr != nil {
-        panic(step1ParseErr)
-    }
+		panic(step1ParseErr)
+	}
 	positionAfterStep1, _, step1Err := DoRotation(positionAfterStep0, step1[:1], step1Clicks)
 	if step1Err != nil {
 		panic(step1Err)
@@ -183,8 +181,8 @@ func TestExampleInput(t *testing.T) {
 	step2 := steps[2] // R48
 	step2Clicks, step2ParseErr := strconv.Atoi(step2[1:])
 	if step2ParseErr != nil {
-        panic(step2ParseErr)
-    }
+		panic(step2ParseErr)
+	}
 	positionAfterStep2, _, step2Err := DoRotation(positionAfterStep1, step2[:1], step2Clicks)
 	if step2Err != nil {
 		panic(step2Err)
@@ -196,8 +194,8 @@ func TestExampleInput(t *testing.T) {
 	step3 := steps[3] // L5
 	step3Clicks, step3ParseErr := strconv.Atoi(step3[1:])
 	if step3ParseErr != nil {
-        panic(step3ParseErr)
-    }
+		panic(step3ParseErr)
+	}
 	positionAfterStep3, _, step3Err := DoRotation(positionAfterStep2, step3[:1], step3Clicks)
 	if step3Err != nil {
 		panic(step3Err)
@@ -209,8 +207,8 @@ func TestExampleInput(t *testing.T) {
 	step4 := steps[4] // R60
 	step4Clicks, step4ParseErr := strconv.Atoi(step4[1:])
 	if step4ParseErr != nil {
-        panic(step4ParseErr)
-    }
+		panic(step4ParseErr)
+	}
 	positionAfterStep4, _, step4Err := DoRotation(positionAfterStep3, step4[:1], step4Clicks)
 	if step4Err != nil {
 		panic(step4Err)
@@ -237,8 +235,8 @@ func TestExampleInputWithZeroCounter(t *testing.T) {
 	step0 := steps[0] // L68
 	step0Clicks, step0ParseErr := strconv.Atoi(step0[1:])
 	if step0ParseErr != nil {
-        panic(step0ParseErr)
-    }
+		panic(step0ParseErr)
+	}
 
 	positionAfterStep0, zeroCountAfterStep0, step0Err := DoRotation(startingPosition, step0[:1], step0Clicks, 0)
 	if step0Err != nil {
@@ -254,8 +252,8 @@ func TestExampleInputWithZeroCounter(t *testing.T) {
 	step1 := steps[1] // L30
 	step1Clicks, step1ParseErr := strconv.Atoi(step1[1:])
 	if step1ParseErr != nil {
-        panic(step1ParseErr)
-    }
+		panic(step1ParseErr)
+	}
 
 	positionAfterStep1, zeroCountAfterStep1, step1Err := DoRotation(positionAfterStep0, step1[:1], step1Clicks, zeroCountAfterStep0)
 	if step1Err != nil {
@@ -271,8 +269,8 @@ func TestExampleInputWithZeroCounter(t *testing.T) {
 	step2 := steps[2] // R48
 	step2Clicks, step2ParseErr := strconv.Atoi(step2[1:])
 	if step2ParseErr != nil {
-        panic(step2ParseErr)
-    }
+		panic(step2ParseErr)
+	}
 
 	positionAfterStep2, zeroCountAfterStep2, step2Err := DoRotation(positionAfterStep1, step2[:1], step2Clicks, zeroCountAfterStep1)
 	if step2Err != nil {
@@ -288,8 +286,8 @@ func TestExampleInputWithZeroCounter(t *testing.T) {
 	step3 := steps[3] // L5
 	step3Clicks, step3ParseErr := strconv.Atoi(step3[1:])
 	if step3ParseErr != nil {
-        panic(step3ParseErr)
-    }
+		panic(step3ParseErr)
+	}
 
 	positionAfterStep3, zeroCountAfterStep3, step3Err := DoRotation(positionAfterStep2, step3[:1], step3Clicks, zeroCountAfterStep2)
 	if step3Err != nil {
@@ -305,8 +303,8 @@ func TestExampleInputWithZeroCounter(t *testing.T) {
 	step4 := steps[4] // R60
 	step4Clicks, step4ParseErr := strconv.Atoi(step4[1:])
 	if step4ParseErr != nil {
-        panic(step4ParseErr)
-    }
+		panic(step4ParseErr)
+	}
 
 	positionAfterStep4, zeroCountAfterStep4, step4Err := DoRotation(positionAfterStep3, step4[:1], step4Clicks, zeroCountAfterStep3)
 	if step4Err != nil {
@@ -345,4 +343,3 @@ func TestZeroCountOnLargeRotationLeft(t *testing.T) {
 		t.Errorf("Wanted %d, got %d", want, got)
 	}
 }
-

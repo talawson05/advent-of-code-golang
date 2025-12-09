@@ -22,7 +22,7 @@ func Run(filename string) {
 func ParseInputString(input string) ([][]int, []string) {
 	returnNumbers := [][]int{}
 	rows := strings.Split(strings.TrimSpace(input), "\n")
-	lastRowNumber := len(rows)-1
+	lastRowNumber := len(rows) - 1
 	// Take the operator from the last row
 	returnOperators := strings.Fields(rows[lastRowNumber])
 
@@ -35,7 +35,7 @@ func ParseInputString(input string) ([][]int, []string) {
 			numbersInCurrentRow = append(numbersInCurrentRow, number)
 		}
 		returnNumbers = append(returnNumbers, numbersInCurrentRow)
-	}	
+	}
 	return returnNumbers, returnOperators
 }
 
@@ -46,12 +46,11 @@ func Part2ParseInputFile(fileName string) ([][]int, []string) {
 	}
 	defer file.Close()
 	// can't use fields as the blanks are important.
-	
 
 	scanner := bufio.NewScanner(file)
 	returnNumbers := [][]int{}
 	returnOperators := []string{}
-	
+
 	rows := []string{}
 	for scanner.Scan() {
 		currentLine := scanner.Text()
@@ -62,16 +61,16 @@ func Part2ParseInputFile(fileName string) ([][]int, []string) {
 	// Use operator to step out of current equation?
 	endColumnIndex := len(rows[0]) // 15
 	currentEquation := []int{}
-	for col := endColumnIndex-1; col >= 0; col-- {
+	for col := endColumnIndex - 1; col >= 0; col-- {
 		builder := ""
 		// isOperator := false
 
-		for row  := range rows {
+		for row := range rows {
 			currentChar := rows[row][col]
 
 			switch currentChar {
 			case ' ':
-				if builder != "" {					
+				if builder != "" {
 					conv, _ := strconv.Atoi(builder)
 					// fmt.Printf("End of number %v\n", conv)
 					currentEquation = append(currentEquation, conv)
@@ -89,7 +88,7 @@ func Part2ParseInputFile(fileName string) ([][]int, []string) {
 				returnOperators = append(returnOperators, string(currentChar))
 				returnNumbers = append(returnNumbers, currentEquation)
 				// fmt.Printf("End of equation %v with %v\n", currentEquation, string(currentChar))
-				
+
 				// reset for next block
 				currentEquation = []int{} // reset
 			default:
@@ -142,7 +141,7 @@ func DoCalcPart2(fileName string) int {
 		// fmt.Println(remainingNumbersInRow)
 
 		// iterate for each number after
-		for _, nextNumber := range remainingNumbersInRow {		
+		for _, nextNumber := range remainingNumbersInRow {
 
 			// fmt.Printf("Calculating %v %v %v\n", product, operatorValue, nextNumber)
 

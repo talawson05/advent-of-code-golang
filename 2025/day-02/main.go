@@ -26,12 +26,12 @@ func IsInvalidId(inputVal int) bool {
 
 	// if stringLength % 2 == 0 {
 	// 	firstHalf = asRunes[:halfLength]
-	// 	secondHalf = asRunes[halfLength:]	
+	// 	secondHalf = asRunes[halfLength:]
 	// } else {
 	// 	firstHalf = asRunes[:halfLength+1]
 	// 	secondHalf = asRunes[halfLength:]
 	// }
-	
+
 	// return slices.Equal(firstHalf, secondHalf)
 
 	for i := 1; i < len(inputString); i++ {
@@ -56,14 +56,14 @@ func ExpandRange(inputRange string) ([]int, error) {
 	}
 
 	index := strings.LastIndexByte(inputRange, '-')
-	
+
 	if index <= 0 {
 		formattedErrMessage := fmt.Sprintf("invalid input: %s", inputRange)
 		return nil, errors.New(formattedErrMessage)
 	}
 	rangeStart, _ := strconv.Atoi(inputRange[:index])
 
-	if index +1 >= len(inputRange) {
+	if index+1 >= len(inputRange) {
 		formattedErrMessage := fmt.Sprintf("invalid input: %s", inputRange)
 		return nil, errors.New(formattedErrMessage)
 	}
