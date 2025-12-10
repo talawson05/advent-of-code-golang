@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	aoc.Run("input.txt", 1000)
+	aoc.Run("input.txt", 10000)
 }

@@ -9,13 +9,23 @@ import (
 	"strings"
 )
 
-func Run(fileName string, targetNumberOfConnections int) int {
+func Run(fileName string, targetNumberOfConnections int) (int, int) {
 	input := ParseInput(fileName)
+	numberOfJunctionBoxes := len(input)
+	fmt.Printf("Total numberOfJunctionBoxes %v\n", numberOfJunctionBoxes)
 	pairs := CalculateDistanceForAllJunctionBoxes(input)
 	SortJunctionBoxPairsByDistance(pairs)
+	part2ReturnValue := -1
 
 	circuits := []Circuit{}
 	for i := range targetNumberOfConnections {
+
+		// fmt.Printf("Current index %v and we have %v pairs\n", i, len(pairs))
+		if i > len(pairs)-1 {
+			// escape
+			return -1, part2ReturnValue
+		}
+
 		currentPair := pairs[i]
 		// fmt.Println(currentPair)
 		returnedCircuits, returnedPairs, returnedPair := ConnectPair(circuits, pairs, currentPair)
@@ -28,6 +38,17 @@ func Run(fileName string, targetNumberOfConnections int) int {
 		pairs = returnedPairs
 		pairs[i] = returnedPair
 		// fmt.Printf("main circuits now %v\n", circuits)
+
+		for c := range circuits {
+			numberOfBoxesInCurrentCircuit := len(circuits[c].jbs)
+			// fmt.Printf("i=%v, c=%v, target=%v, number of jbs in circuit %v\n", i, c, numberOfJunctionBoxes, numberOfBoxesInCurrentCircuit)
+
+			if numberOfBoxesInCurrentCircuit == numberOfJunctionBoxes {
+				part2ReturnValue = currentPair.jb1.x * currentPair.jb2.x
+				fmt.Println("Part 2: ", part2ReturnValue)
+				return -1, part2ReturnValue
+			}
+		}
 	}
 
 	// fmt.Println(circuits)
@@ -38,7 +59,7 @@ func Run(fileName string, targetNumberOfConnections int) int {
 	// fmt.Println(largeCircuits)
 	product := MultiplyNumberOfJunctionBoxesInCircuits(largeCircuits)
 	fmt.Println(product)
-	return product
+	return product, part2ReturnValue
 }
 
 // circuitId of 0 means not in a circuit
@@ -123,6 +144,8 @@ func ConnectPair(circuits []Circuit, pairs []Pair, pairToConnect Pair) ([]Circui
 	firstJbCircuit := pairToConnect.jb1.circuitId
 	secondJbCircuit := pairToConnect.jb2.circuitId
 
+	// fmt.Printf("First circuitId %v second circuitId %v\n", firstJbCircuit, secondJbCircuit)
+
 	// Not connected
 	if firstJbCircuit == -1 && secondJbCircuit == -1 {
 		circuitId := GetNextCircuitId(circuits)
@@ -161,7 +184,10 @@ func ConnectPair(circuits []Circuit, pairs []Pair, pairToConnect Pair) ([]Circui
 		// merge all JunctionBoxes from circuit 2 into circuit 1
 		pairToConnect.jb2.circuitId = firstJbCircuit
 		circuits[firstJbCircuit].jbs = append(circuits[firstJbCircuit].jbs, circuits[secondJbCircuit].jbs...)
-		circuits = append(circuits[:secondJbCircuit], circuits[secondJbCircuit:]...) // remove
+
+		// remove junction boxes from circuit
+		circuits[secondJbCircuit].jbs = []JunctionBox{}
+
 		pairs = UpdateAllPairsFromOldCircuitToNewCircuit(pairs, secondJbCircuit, firstJbCircuit)
 	}
 

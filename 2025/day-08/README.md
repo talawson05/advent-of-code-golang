@@ -32,10 +32,25 @@ And now I'm hitting the print statement for the combining of two networks.
 I'm not sure how to approach that given my current set up as the connection function is only aware of the list of circuits and the current pair being connected; how to update the other pairs? Passing the list in, and moving the call to UpdateListOfPairs inside the connect function
 
 #### Gotcha: remove from slice
-Following the advice on `https://go.dev/wiki/SliceTricks` which says to do `a = append(a[:i], a[i+1:]...)` however the +1 ends up with an index out of range error.
+Following the advice on `https://go.dev/wiki/SliceTricks` which says to do `a = append(a[:i], a[i+1:]...)` however the +1 ends up with an index out of range error if the item you're removing is the last one in the list.
 What's that about?!  
 
 ## Part 2
+
+instead of stopping at a fixed number, keep going until all pairs are in the same circuit, then do a quick calculation before break.
+
+### Part 2 TDD
+
+What happens if we run out of junction box pairs?
+Create a test with the example input.
+
+
+### Part 2 Impl
+The slice operations are biting me, looks like removing is not a good idea as we run into index issues.
+I need a way of knowing that there a circuit has all the junction boxes, which also means I need to know how many junction boxes there are.
+Count of how many junction boxes there are is easy enough.
+However I've ended up looping through each circuit to compare the number of boxes it has, on every iteration.
+End result is this is the longest running task so far.
 
 ## Take aways
 

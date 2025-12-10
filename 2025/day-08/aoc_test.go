@@ -274,8 +274,9 @@ func TestConnectTwoNetworks(t *testing.T) {
 		t.Errorf("Expected %v in %v", want, returnedPair)
 	}
 
-	if len(returnedListOfCircuits) != 1 {
-		t.Errorf("Expected %v in %v", 1, listOfCircuits)
+	// We still have 2 circuits, just id 1 has no junction boxes
+	if len(returnedListOfCircuits) != 2 {
+		t.Errorf("Expected %v in %v", 2, listOfCircuits)
 	}
 
 	if returnedListOfPairs[2].jb1.circuitId != 0 {
@@ -311,6 +312,10 @@ func TestGetXNumberOfCircuitsBySize(t *testing.T) {
 				JunctionBox{425, 690, 689, 0},
 				JunctionBox{431, 825, 988, 0},
 			},
+		},
+		{
+			3,
+			[]JunctionBox{}, // empty
 		},
 	}
 
@@ -364,8 +369,26 @@ func TestMultiplyNumberOfJunctionBoxesInCircuits(t *testing.T) {
 
 func TestExampleInputForPart1(t *testing.T) {
 	fileName := "example_input.txt"
-	got := Run(fileName, 10)
+	got, _ := Run(fileName, 10)
 	want := 40
+	if want != got {
+		t.Errorf("Wanted %v but got %v", want, got)
+	}
+}
+
+func TestExampleInputForPart2TooHighTarget(t *testing.T) {
+	fileName := "example_input.txt"
+	got, _ := Run(fileName, 1000)
+	want := -1
+	if want != got {
+		t.Errorf("Wanted %v but got %v", want, got)
+	}
+}
+
+func TestExampleInputForPart2(t *testing.T) {
+	fileName := "example_input.txt"
+	_, got := Run(fileName, 190)
+	want := 25272
 	if want != got {
 		t.Errorf("Wanted %v but got %v", want, got)
 	}
