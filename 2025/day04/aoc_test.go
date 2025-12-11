@@ -1,4 +1,4 @@
-package aoc
+package day04
 
 import (
 	"maps"

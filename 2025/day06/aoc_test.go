@@ -1,4 +1,4 @@
-package aoc
+package day06
 
 import (
 	"reflect"

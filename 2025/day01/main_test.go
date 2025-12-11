@@ -1,4 +1,4 @@
-package aoc
+package day01
 
 import (
 	"bufio"
@@ -10,7 +10,7 @@ import (
 )
 
 /*
-	cd 2025/day-01/
+	cd 2025/day01/
 	go test ./...
 */
 

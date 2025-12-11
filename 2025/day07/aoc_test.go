@@ -1,4 +1,4 @@
-package aoc
+package day07
 
 import (
 	"testing"

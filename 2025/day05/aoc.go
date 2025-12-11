@@ -1,4 +1,4 @@
-package aoc
+package day05
 
 import (
 	"errors"

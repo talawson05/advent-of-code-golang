@@ -1,4 +1,4 @@
-package aoc
+package day09
 
 import (
 	"fmt"
@@ -40,7 +40,10 @@ func GetListOfTilesFromString(input string) []Tile {
 			continue // step over blank rows
 		}
 		var x, y int
-		fmt.Sscanf(rowText, "%d,%d", &x, &y)
+		_, err := fmt.Sscanf(rowText, "%d,%d", &x, &y)
+		if err != nil {
+			panic(err)
+		}
 		returnValue = append(returnValue, Tile{x, y})
 	}
 

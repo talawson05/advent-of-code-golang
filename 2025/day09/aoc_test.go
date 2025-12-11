@@ -1,4 +1,4 @@
-package aoc
+package day09
 
 import (
 	"fmt"

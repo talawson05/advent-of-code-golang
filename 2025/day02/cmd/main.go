@@ -1,9 +1,9 @@
 package main
 
 import (
-	"aoc"
+	"github.com/talawson05/advent-of-code-golang/2025/day02"
 )
 
 func main() {
-	aoc.Run()
+	day02.Run()
 }

@@ -1,4 +1,4 @@
-package aoc
+package day02
 
 import (
 	"bufio"
@@ -104,7 +104,7 @@ func SumRange(inputRange []int) int {
 }
 
 /*
-	cd 2025/day-02/
+	cd 2025/day02/
 	go run ./cmd/
 */
 
