@@ -84,7 +84,7 @@ func ParseInput(fileName string) []JunctionBox {
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
+	defer file.Close() //nolint:errcheck
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {

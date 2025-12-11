@@ -44,7 +44,7 @@ func Part2ParseInputFile(fileName string) ([][]int, []string) {
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
+	defer file.Close() //nolint:errcheck
 	// can't use fields as the blanks are important.
 
 	scanner := bufio.NewScanner(file)

@@ -18,7 +18,7 @@ func Run() {
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
+	defer file.Close() //nolint:errcheck
 
 	sum := 0
 	scanner := bufio.NewScanner(file)
