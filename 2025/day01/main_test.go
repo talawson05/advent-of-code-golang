@@ -14,10 +14,6 @@ import (
 	go test ./...
 */
 
-func TestGitHubActions(t *testing.T) {
-	t.Error("deliberatly fail")
-}
-
 func TestSimpleRightTurn(t *testing.T) {
 	want := 12
 	got, _, err := DoRotation(10, "R", 2)
