@@ -23,10 +23,10 @@ func Run() {
 	sum := 0
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-			currentLine := scanner.Text()
-			returnedValue := GetBiggestNumberFromRange(currentLine)
-			currentNumber, _ := strconv.Atoi(returnedValue)
-			sum += currentNumber
+		currentLine := scanner.Text()
+		returnedValue := GetBiggestNumberFromRange(currentLine)
+		currentNumber, _ := strconv.Atoi(returnedValue)
+		sum += currentNumber
 	}
 
 	fmt.Println(sum)
