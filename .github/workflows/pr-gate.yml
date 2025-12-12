@@ -12,6 +12,7 @@ jobs:
         go-version: stable         
     - name: Test
       run: go test -v ./...
+
   golangci:
     name: lint
     runs-on: ubuntu-latest
@@ -24,3 +25,5 @@ jobs:
         uses: golangci/golangci-lint-action@v9
         with:
           version: v2.6
+      - name: fmt
+        run: golangci-lint fmt
