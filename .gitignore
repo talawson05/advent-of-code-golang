@@ -34,3 +34,6 @@ go.work.sum
 # Advent of Code
 **/input.txt
 **/output.txt
+
+# Mac
+.DS_Store
