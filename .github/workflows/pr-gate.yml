@@ -1,7 +1,7 @@
 name: PR Gate
 on: [push]
 jobs:
-  PR-Gate:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
@@ -9,6 +9,18 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.25'          
+        go-version: stable         
     - name: Test
       run: go test -v ./...
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.6
