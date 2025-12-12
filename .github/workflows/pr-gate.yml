@@ -27,4 +27,4 @@ jobs:
           version: latest
           args: --timeout 5m
       - name: fmt
-        run: golangci-lint fmt
+        run: golangci-lint fmt -d
