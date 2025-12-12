@@ -1,0 +1,33 @@
+name: PR Gate
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v5
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: stable         
+    - name: Test
+      run: go test -v ./...
+
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: latest
+          args: --timeout 5m
+      - name: fmt
+        run: golangci-lint fmt -d
