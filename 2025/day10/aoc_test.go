@@ -29,7 +29,7 @@ func TestParseInput(t *testing.T) {
 
 func TestLightToggleState(t *testing.T) {
 	state := State{lights: Lights{Off, Off, Off, Off}}
-	buttons := []Button{{3}, {1,3}, {2}, {2,3}, {0,2}, {0,1},}
+	buttons := []Button{{3}, {1, 3}, {2}, {2, 3}, {0, 2}, {0, 1}}
 
 	state.lights.press(buttons[0]) // 3
 	expectedAfterPress0 := Lights{Off, Off, Off, On}
@@ -101,7 +101,7 @@ func TestExampleInput2(t *testing.T) {
 	}
 }
 
-func TestPressesToMeetJoltage0(t * testing.T) {
+func TestPressesToMeetJoltage0(t *testing.T) {
 	inputFile := "example_input.txt"
 	machines, err := ParseInput(inputFile)
 	if err != nil {
@@ -116,7 +116,7 @@ func TestPressesToMeetJoltage0(t * testing.T) {
 	}
 }
 
-func TestPressesToMeetJoltage1(t * testing.T) {
+func TestPressesToMeetJoltage1(t *testing.T) {
 	inputFile := "example_input.txt"
 	machines, err := ParseInput(inputFile)
 	if err != nil {
@@ -131,7 +131,7 @@ func TestPressesToMeetJoltage1(t * testing.T) {
 	}
 }
 
-func TestPressesToMeetJoltage2(t * testing.T) {
+func TestPressesToMeetJoltage2(t *testing.T) {
 	inputFile := "example_input.txt"
 	machines, err := ParseInput(inputFile)
 	if err != nil {
