@@ -101,3 +101,47 @@ func TestExampleInput2(t *testing.T) {
 	}
 }
 
+func TestPressesToMeetJoltage0(t * testing.T) {
+	inputFile := "example_input.txt"
+	machines, err := ParseInput(inputFile)
+	if err != nil {
+		t.Errorf("Got error: %s", err)
+	}
+
+	got := machines[0].PressesToMeetJoltage()
+	want := 10
+
+	if want != got {
+		t.Errorf("Wanted %v but got %v", want, got)
+	}
+}
+
+func TestPressesToMeetJoltage1(t * testing.T) {
+	inputFile := "example_input.txt"
+	machines, err := ParseInput(inputFile)
+	if err != nil {
+		t.Errorf("Got error: %s", err)
+	}
+
+	got := machines[1].PressesToMeetJoltage()
+	want := 12
+
+	if want != got {
+		t.Errorf("Wanted %v but got %v", want, got)
+	}
+}
+
+func TestPressesToMeetJoltage2(t * testing.T) {
+	inputFile := "example_input.txt"
+	machines, err := ParseInput(inputFile)
+	if err != nil {
+		t.Errorf("Got error: %s", err)
+	}
+
+	got := machines[2].PressesToMeetJoltage()
+	want := 11
+
+	if want != got {
+		t.Errorf("Wanted %v but got %v", want, got)
+	}
+}
