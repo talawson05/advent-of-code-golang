@@ -9,16 +9,16 @@ func TestParseInput(t *testing.T) {
 	fileName := "example_input.txt"
 	got := ParseInput(fileName)
 	want := map[string][]string{
-		"you" : {"bbb", "ccc"},
-		"aaa" : {"you", "hhh"},
-		"bbb" : {"ddd", "eee"},
-		"ccc" : {"ddd", "eee", "fff"},
-		"ddd" : {"ggg",},
-		"eee" : {"out",},
-		"fff" : {"out",},
-		"ggg" : {"out",},
-		"hhh" : {"ccc", "fff", "iii"},
-		"iii" : {"out",},
+		"you": {"bbb", "ccc"},
+		"aaa": {"you", "hhh"},
+		"bbb": {"ddd", "eee"},
+		"ccc": {"ddd", "eee", "fff"},
+		"ddd": {"ggg"},
+		"eee": {"out"},
+		"fff": {"out"},
+		"ggg": {"out"},
+		"hhh": {"ccc", "fff", "iii"},
+		"iii": {"out"},
 	}
 	if !reflect.DeepEqual(want, got) {
 		t.Errorf("Wanted %v but got %v", want, got)
@@ -27,7 +27,7 @@ func TestParseInput(t *testing.T) {
 
 func TestParseTreeSingleChild(t *testing.T) {
 	input := map[string][]string{
-		"ddd" : {"ggg",},
+		"ddd": {"ggg"},
 	}
 	got := parseTree(input, "ddd", "ggg")
 	want := 1
@@ -38,7 +38,7 @@ func TestParseTreeSingleChild(t *testing.T) {
 
 func TestParseTreeTwoChild(t *testing.T) {
 	input := map[string][]string{
-		"aaa" : {"you", "hhh"},
+		"aaa": {"you", "hhh"},
 	}
 	got := parseTree(input, "aaa", "you")
 	want := 1
@@ -49,7 +49,7 @@ func TestParseTreeTwoChild(t *testing.T) {
 
 func TestParseTreeRecursiveOnePath(t *testing.T) {
 	input := map[string][]string{
-		"you" : {"bbb", "ccc"},
+		"you": {"bbb", "ccc"},
 		"bbb": {"ddd", "eee"},
 		"fff": {"out"},
 	}
@@ -62,7 +62,7 @@ func TestParseTreeRecursiveOnePath(t *testing.T) {
 
 func TestParseTreeRecursiveTwoPaths(t *testing.T) {
 	input := map[string][]string{
-		"you" : {"bbb", "ccc"},
+		"you": {"bbb", "ccc"},
 		"bbb": {"ddd", "eee"},
 		"ccc": {"ddd", "eee", "fff"},
 	}
@@ -78,6 +78,16 @@ func TestSolvePaths(t *testing.T) {
 	tree := ParseInput(fileName)
 	got := SolvePaths(tree)
 	want := 5
+	if want != got {
+		t.Errorf("wanted %v but got %v", want, got)
+	}
+}
+
+func TestSolvePathsPart2(t *testing.T) {
+	fileName := "example_input2.txt"
+	tree := ParseInput(fileName)
+	got := SolvePathsPart2(tree)
+	want := 2
 	if want != got {
 		t.Errorf("wanted %v but got %v", want, got)
 	}
